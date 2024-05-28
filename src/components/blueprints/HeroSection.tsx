@@ -1,7 +1,7 @@
-import HeroLayout from "../structures/HeroLayout";
+import Hero from "../structures/Hero";
 
 const HeroSection = () => {
-  return <HeroLayout />;
+  return <Hero />;
 };
 
 export default HeroSection;

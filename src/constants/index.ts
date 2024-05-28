@@ -15,3 +15,13 @@ export const DATA_HEADER = [
     path: "/users",
   },
 ];
+
+export const DATA_HERO = {
+  title:
+    "The Impact of Technology on the Workplace: How Technology is Changing",
+  badge: "Technology",
+  avatar: "/images/personal-avatar.webp",
+  name: "Willy Pratama",
+  date: "May 29, 2024",
+  heroImage: "/images/hero.jpg",
+};

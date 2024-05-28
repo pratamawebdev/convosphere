@@ -6,8 +6,12 @@ import Container from "./Container";
 import HeaderNavList from "./HeaderNavList";
 import HeaderRightList from "./HeaderRightList";
 import { DATA_HEADER } from "../../constants/index";
-import Sidebar from "./Sidebar";
 import SidebarController from "./SidebarController";
+import dynamic from "next/dynamic";
+
+const DynamicSidebar = dynamic(() => import("./Sidebar"), {
+  loading: () => <p>Loading...</p>,
+});
 
 const HeaderNav = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -16,14 +20,15 @@ const HeaderNav = () => {
       <Container>
         <div className="flex items-center h-[100px] justify-between">
           <WebsiteIcon />
-          <Sidebar DATA_HEADER={DATA_HEADER} sidebarOpen={sidebarOpen} />
+          <DynamicSidebar DATA_HEADER={DATA_HEADER} sidebarOpen={sidebarOpen} />
           <div className="flex items-center gap-2">
             <HeaderNavList
               DATA_HEADER={DATA_HEADER}
               className={"hidden lg:block"}
             />
-            <div className="bg-gray-300 h-8 w-[2px]" />
+            <div className="bg-gray-300 hidden md:block h-8 w-[2px]" />
             <HeaderRightList />
+            <div className="bg-gray-300 md:hidden h-8 w-[2px]" />
             <SidebarController
               sidebarOpen={sidebarOpen}
               onClick={() => setSidebarOpen(!sidebarOpen)}

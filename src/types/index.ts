@@ -18,3 +18,11 @@ export interface DataHeader {
   title: string;
   path: string;
 }
+
+export type HeroCardProps = {
+  badge: string;
+  title: string;
+  name: string;
+  date: string;
+  avatar: string;
+};

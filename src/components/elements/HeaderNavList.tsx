@@ -17,18 +17,20 @@ const HeaderNavList: React.FC<HeaderNavListProps> = ({
   const pathname = usePathname();
   return (
     <nav className={className}>
-      <ul className="flex flex-col items-center gap-4 lg:flex-row">
+      <ul className="flex flex-col items-center gap-8 md:gap-4 lg:flex-row">
         {DATA_HEADER.map((item) => {
           const active =
-            item.path === "/dashboard"
+            item.path === "/"
               ? pathname === item.path
               : pathname.startsWith(item.path);
           return (
             <li key={item.id}>
               <Link
                 href={item.path}
-                className={`px-3 py-1 text-base font-bold ${
-                  active ? "text-primary" : "text-[#6D737A]"
+                className={`px-3 py-1 text-xl md:text-base font-bold ${
+                  active
+                    ? "text-primary"
+                    : "text-[#6D737A] hover:text-primary transition-colors"
                 }`}
               >
                 {item.title}

@@ -1,6 +1,5 @@
 import getData from "@/api/getData";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
 
 interface Post {
   id: number;
@@ -14,15 +13,23 @@ interface PostsState {
   selectedPost: Post | null;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
+  currentPage: number;
+  perPage: number;
 }
 
+interface FetchPostsParams {
+  page: number;
+  per_page: number;
+}
 export const fetchPosts = createAsyncThunk<
   Post[],
-  void,
+  FetchPostsParams,
   { rejectValue: string }
->("posts/fetchPosts", async (_, { rejectWithValue }) => {
+>("posts/fetchPosts", async ({ page, per_page }, { rejectWithValue }) => {
   try {
-    const response = await getData("/public/v2/posts?page=1&per_page=20");
+    const response = await getData(
+      `/public/v2/posts?page=${page}&per_page=${per_page}`
+    );
     if (!response || !response.data) {
       throw new Error("Invalid response data");
     }
@@ -48,51 +55,13 @@ export const fetchPostById = createAsyncThunk<
   }
 });
 
-// export const addPost = createAsyncThunk<Post, Partial<Post>>(
-//   "posts/addPost",
-//   async (newPost) => {
-//     const response = await axios.post(API_URL, newPost, {
-//       headers: {
-//         Authorization: `Bearer ${API_KEY}`,
-//       },
-//     });
-//     return response.data;
-//   }
-// );
-
-// export const updatePost = createAsyncThunk<Post, Post>(
-//   "posts/updatePost",
-//   async (updatedPost) => {
-//     const response = await axios.put(
-//       `${API_URL}/${updatedPost.id}`,
-//       updatedPost,
-//       {
-//         headers: {
-//           Authorization: `Bearer ${API_KEY}`,
-//         },
-//       }
-//     );
-//     return response.data;
-//   }
-// );
-
-// export const deletePost = createAsyncThunk<number, number>(
-//   "posts/deletePost",
-//   async (postId) => {
-//     await axios.delete(`${API_URL}/${postId}`, {
-//       headers: {
-//         Authorization: `Bearer ${API_KEY}`,
-//       },
-//     });
-//     return postId;
-//   }
-// );
-
 const initialState: PostsState = {
   posts: [],
   selectedPost: null,
   status: "idle",
   error: null,
+  currentPage: 1,
+  perPage: 10,
 };
 
 const postsSlice = createSlice({
@@ -126,20 +95,6 @@ const postsSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message || null;
       });
-    //   .addCase(addPost.fulfilled, (state, action: PayloadAction<Post>) => {
-    //     state.posts.push(action.payload);
-    //   })
-    //   .addCase(updatePost.fulfilled, (state, action: PayloadAction<Post>) => {
-    //     const index = state.posts.findIndex(
-    //       (post) => post.id === action.payload.id
-    //     );
-    //     if (index !== -1) {
-    //       state.posts[index] = action.payload;
-    //     }
-    //   })
-    //   .addCase(deletePost.fulfilled, (state, action: PayloadAction<number>) => {
-    //     state.posts = state.posts.filter((post) => post.id !== action.payload);
-    //   });
   },
 });
 

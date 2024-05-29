@@ -1,13 +1,15 @@
 import clsx from "clsx";
 import Link from "next/link";
-import { ReactNode } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 
 interface ButtonProps {
-  onClick: () => void;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   children: ReactNode;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "danger";
   disabled?: boolean;
   ariaLabel?: string;
+  className?: string;
+  type?: "button" | "submit" | "reset";
 }
 
 interface ButtonLinkProps {
@@ -18,14 +20,26 @@ interface ButtonLinkProps {
 }
 
 const Button: React.FC<ButtonProps> = (props) => {
-  const { onClick, children, disabled, variant = "primary", ariaLabel } = props;
+  const {
+    onClick,
+    children,
+    disabled,
+    variant = "primary",
+    ariaLabel,
+    className,
+    type = "button",
+  } = props;
   return (
     <button
+      type={type}
       onClick={onClick}
       className={clsx([
         "px-4 py-2 w-fit",
         variant === "primary" &&
           "bg-primary text-white font-semibold rounded-lg",
+        variant === "danger" &&
+          "bg-red-500 text-white font-semibold rounded-lg",
+        className,
       ])}
       aria-label={ariaLabel}
       disabled={disabled}

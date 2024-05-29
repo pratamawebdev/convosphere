@@ -25,3 +25,8 @@ export const DATA_HERO = {
   date: "May 29, 2024",
   heroImage: "/images/hero.jpg",
 };
+
+export const DATA_HEADER_TABLE = ["Id", "Name", "Gender", "Status", "Action"];
+
+export const DATA_GENDER = ["male", "female"] as const;
+export const DATA_STATUS = ["active", "inactive"] as const;

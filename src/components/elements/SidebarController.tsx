@@ -11,7 +11,7 @@ const SidebarController: React.FC<SidebarControllerProps> = ({
 }) => {
   return (
     <button
-      className="z-50 lg:hidden hover:shadow-lg p-1 transition-all border border-white hover:border-gray-200"
+      className="z-20 lg:hidden hover:shadow-lg p-1 transition-all border border-white hover:border-gray-200"
       onClick={onClick}
       aria-label="menu"
     >

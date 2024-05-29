@@ -1,5 +1,5 @@
 import Image from "next/image";
-import CardBadge from "./CardBadge";
+import Badge from "./Badge";
 import { HeroCardProps } from "@/types";
 
 const HeroCard: React.FC<HeroCardProps> = (props) => {
@@ -7,7 +7,7 @@ const HeroCard: React.FC<HeroCardProps> = (props) => {
   return (
     <div className="bg-white w-[598px] p-10 rounded-[12px] shadow-lg border md:bottom-4 md:right-4 absolute hidden md:block lg:-bottom-16 lg:left-16">
       <div className="flex flex-col gap-4">
-        <CardBadge>{badge}</CardBadge>
+        <Badge>{badge}</Badge>
         <h2 className="text-black text-[36px] font-semibold">{title}</h2>
       </div>
       <div className="mt-6 flex items-center gap-5">

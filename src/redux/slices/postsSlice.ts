@@ -1,16 +1,14 @@
 import getData from "@/api/getData";
+import { Comment, Post } from "@/types";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
-interface Post {
-  id: number;
-  user_id: number;
-  title: string;
-  body: string;
+interface PostWithComments extends Post {
+  comments?: Comment[];
 }
 
 interface PostsState {
   posts: Post[];
-  selectedPost: Post | null;
+  selectedPost: PostWithComments | null;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
   currentPage: number;
@@ -38,18 +36,30 @@ export const fetchPosts = createAsyncThunk<
     return rejectWithValue(error.message || "An error occurred");
   }
 });
-
 export const fetchPostById = createAsyncThunk<
-  Post,
+  PostWithComments,
   number,
   { rejectValue: string }
 >("posts/fetchPostById", async (postId, { rejectWithValue }) => {
   try {
-    const response = await getData(`/public/v2/posts/${postId}`);
-    if (!response || !response.data) {
-      throw new Error("Invalid response data");
+    const postResponse = await getData(`/public/v2/posts/${postId}`);
+    if (!postResponse || !postResponse.data) {
+      throw new Error("Invalid post response data");
     }
-    return response.data;
+
+    const commentsResponse = await getData(
+      `/public/v2/posts/${postId}/comments`
+    );
+    if (!commentsResponse || !commentsResponse.data) {
+      throw new Error("Invalid comments response data");
+    }
+
+    const postWithComments: PostWithComments = {
+      ...postResponse.data,
+      comments: commentsResponse.data,
+    };
+
+    return postWithComments;
   } catch (error: any) {
     return rejectWithValue(error.message || "An error occurred");
   }
@@ -86,7 +96,7 @@ const postsSlice = createSlice({
       })
       .addCase(
         fetchPostById.fulfilled,
-        (state, action: PayloadAction<Post>) => {
+        (state, action: PayloadAction<PostWithComments>) => {
           state.status = "succeeded";
           state.selectedPost = action.payload;
         }

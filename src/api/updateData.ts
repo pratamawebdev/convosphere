@@ -1,14 +1,14 @@
 import { responseAlert } from "@/utils/responseAlert";
 import axios, { AxiosResponse } from "axios";
 
-interface PostDataResponse {
-  data: any; // Adjust according to your expected response data type
+interface UpdateDataResponse {
+  data: any;
 }
 
-const postData = async (
+const updateData = async (
   path: string,
   data: any
-): Promise<PostDataResponse | undefined> => {
+): Promise<UpdateDataResponse | undefined> => {
   try {
     const token = process.env.NEXT_PUBLIC_API_TOKEN;
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -18,7 +18,7 @@ const postData = async (
     }
 
     const url = `${baseUrl}${path}`;
-    const response: AxiosResponse<PostDataResponse> = await axios.post(
+    const response: AxiosResponse<UpdateDataResponse> = await axios.put(
       url,
       data,
       {
@@ -29,7 +29,7 @@ const postData = async (
     );
     responseAlert({
       title: "Success",
-      message: "Data posted successfully.",
+      message: "Data updated successfully.",
       icon: "success",
     });
     return response.data;
@@ -52,4 +52,4 @@ const postData = async (
   }
 };
 
-export default postData;
+export default updateData;

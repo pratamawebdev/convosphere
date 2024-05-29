@@ -16,7 +16,7 @@ const DynamicSidebar = dynamic(() => import("./Sidebar"), {
 const HeaderNav = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
-    <header className="bg-white px-2 md:px-4 mx-auto w-full">
+    <header className="bg-white px-2 md:px-4 mx-auto w-full z-40">
       <Container>
         <div className="flex items-center h-[100px] justify-between">
           <WebsiteIcon />

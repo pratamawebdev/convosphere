@@ -2,7 +2,7 @@ import Detail from "@/assets/icons/Detail";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import CardBadge from "./CardBadge";
+import Badge from "./Badge";
 
 interface PostCardProps {
   title: string;
@@ -25,9 +25,9 @@ const PostCard: React.FC<PostCardProps> = ({ title, body, href }) => {
               priority
             />
           </div>
-          <CardBadge variant="secondary" className="absolute top-2 left-2">
+          <Badge variant="secondary" className="absolute top-2 left-2">
             Natural
-          </CardBadge>
+          </Badge>
         </div>
         <div className=" flex flex-col gap-4 h-36">
           <h2 className="font-semibold text-gray-400 text-xl">{title}</h2>

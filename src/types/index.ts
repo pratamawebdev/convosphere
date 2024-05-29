@@ -13,6 +13,21 @@ export interface User {
   status: "active" | "inactive";
 }
 
+export interface UserCreate {
+  name: string;
+  email: string;
+  gender: "male" | "female" | "other";
+  status: "active" | "inactive";
+}
+
+export interface Comment {
+  id: number;
+  post_id: number;
+  name: string;
+  email: string;
+  body: string;
+}
+
 export interface DataHeader {
   id: number;
   title: string;

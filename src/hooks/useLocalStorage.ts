@@ -1,10 +1,3 @@
-/* `useLocalStorage`
- *
- * Features:
- *  - JSON Serializing
- *  - Also value will be updated everywhere, when value updated (via `storage` event)
- */
-
 import { useEffect, useState } from "react";
 
 export default function useLocalStorage<T>(

@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 
 interface DeleteDataResponse {
-  data: any; // Adjust according to your expected response data type
+  data: any;
 }
 
 const deleteData = async (

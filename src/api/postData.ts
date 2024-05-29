@@ -2,7 +2,7 @@ import { responseAlert } from "@/utils/responseAlert";
 import axios, { AxiosResponse } from "axios";
 
 interface PostDataResponse {
-  data: any; // Adjust according to your expected response data type
+  data: any;
 }
 
 const postData = async (

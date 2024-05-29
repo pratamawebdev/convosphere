@@ -18,6 +18,11 @@ import { UserFormType } from "@/libs/form-schema";
 import useDebounce from "@/hooks/useDebounce";
 import FormCreateUser from "./FormCreateUser";
 import FormEditUser from "./FormEditUser";
+import dynamic from "next/dynamic";
+
+const DynamicModal = dynamic(() => import("../elements/Modal"), {
+  loading: () => <p>Loading...</p>,
+});
 
 const AllUser = () => {
   const [open, setOpen] = useState(false);
@@ -173,13 +178,13 @@ const AllUser = () => {
           </tr>
         ))}
       />
-      <Modal onClose={closeModal} open={open} title="Add User">
+      <DynamicModal onClose={closeModal} open={open} title="Add User">
         {selectedUser ? (
           <FormEditUser userData={selectedUser as any} />
         ) : (
           <FormCreateUser />
         )}
-      </Modal>
+      </DynamicModal>
     </UserLayout>
   );
 };

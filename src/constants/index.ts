@@ -23,7 +23,7 @@ export const DATA_HERO = {
   avatar: "/images/personal-avatar.webp",
   name: "Willy Pratama",
   date: "May 29, 2024",
-  heroImage: "/images/hero.jpg",
+  heroImage: "/images/hero.webp",
 };
 
 export const DATA_HEADER_TABLE = ["Id", "Name", "Gender", "Status", "Action"];
